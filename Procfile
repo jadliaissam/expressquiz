@@ -1,1 +1,1 @@
-web: gunicorn starterpy.wsgi --log-file -
+web: gunicorn sharedlingo.wsgi --log-file -
