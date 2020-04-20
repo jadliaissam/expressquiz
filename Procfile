@@ -1,0 +1,1 @@
+web: gunicorn starterpy.wsgi --log-file -
