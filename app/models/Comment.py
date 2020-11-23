@@ -6,6 +6,5 @@ from app.models import Post
 class Comment(models.Model):
     title = models.CharField(max_length=1000)
     body = models.TextField()
-    comment_user = models.ForeignKey(User)
+    comment_user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment_post = models.ForeignKey(Post, on_delete=models.CASCADE)
-
