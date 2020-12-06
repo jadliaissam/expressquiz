@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-
+import ChatScreen from './ChatScreen'
 class App extends Component {
   constructor(props) {
     super(props);
@@ -16,13 +16,12 @@ class App extends Component {
       .then(response => {
         if (response.status > 400) {
           return this.setState(() => {
-            return { placeholder: "Somethi ng went wrong!" };
+            return { placeholder: "Something went wrong!" };
           });
         }
         return response.json();
       })
       .then(data => {
-        alert(JSON.stringify(data))
         this.setState(() => {
           return {
             data,
@@ -34,15 +33,7 @@ class App extends Component {
 
   render() {
     return (
-      <ul>
-        {this.state.data.map(contact => {
-          return (
-            <li key={contact.id}>
-              {contact.name} - {contact.email}
-            </li>
-          );
-        })}
-      </ul>
+        <ChatScreen />
     );
   }
 }
