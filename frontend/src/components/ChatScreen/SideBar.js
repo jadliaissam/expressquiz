@@ -1,7 +1,11 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Contact from './Contact'
 
 const SideBar = (props) => {
+    const [data, setData] = useState(props.data)
+    useEffect(() => {
+        setData(props.data)
+    }, [])
     return (
         <div id="sidepanel">
             <div id="profile">
@@ -31,11 +35,20 @@ const SideBar = (props) => {
             </div>
             <div id="search">
                 <label><i className="icon-search4" aria-hidden="true"/></label>
-                <input type="text" placeholder="Search contacts..."/>
+                <input type="text" placeholder="Search contacts..." onChange={
+                    (evt) => {
+                        setData(
+                            props.data.filter(
+                                e => e.users[1].first_name.toLowerCase()
+                                    .includes(evt.target.value.toLowerCase())
+                            )
+                        )
+                    }}
+                />
             </div>
             <div id="contacts">
                 <ul>
-                    {[1, 2, 3, 4, 5, 6].map(e => <Contact/>)}
+                    {data.map(d => <Contact onClick={() => props.displayFeed(d.id)} d={d}/>)}
                     <li className="contact active">
                         <div className="wrap">
                             <span className="contact-status busy"/>

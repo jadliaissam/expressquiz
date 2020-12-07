@@ -4,3 +4,5 @@ from .Comment import Comment
 from .Language import Language
 from .Call import Call
 from .Room import Room
+from .Discussion import Discussion
+from .Message import Message

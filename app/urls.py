@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.urls import path
 from app.views import home
+from app.views.home import seed
 
 urlpatterns = [
     path('', home),
+    path('seed', seed),
 ]
