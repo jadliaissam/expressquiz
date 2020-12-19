@@ -1,11 +1,8 @@
-import React, {useEffect, useState} from "react";
-import Contact from './Contact'
+import React, {useState} from "react";
+import Contact from "./Contact";
 
 const SideBar = (props) => {
     const [data, setData] = useState(props.data)
-    useEffect(() => {
-        setData(props.data)
-    }, [])
     return (
         <div id="sidepanel">
             <div id="profile">
@@ -39,8 +36,10 @@ const SideBar = (props) => {
                     (evt) => {
                         setData(
                             props.data.filter(
-                                e => e.users[1].first_name.toLowerCase()
-                                    .includes(evt.target.value.toLowerCase())
+                                e => {
+                                    let fullname = e.users[1].first_name + " " + e.users[1].last_name;
+                                    return fullname.toLowerCase().includes(evt.target.value.toLowerCase())
+                                }
                             )
                         )
                     }}

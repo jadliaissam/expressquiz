@@ -43,7 +43,7 @@ class ChatScreen extends Component {
     render() {
         return (
             <section className="main-container">
-                <h1 style={{display: 'none'}}>Empty Heading</h1>
+                <h1 style={{display: "none"}}>Empty Heading</h1>
                 <div>
                     <div id="frame">
                         {
