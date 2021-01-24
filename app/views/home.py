@@ -37,12 +37,21 @@ def seed(request):
         d.users.add(owner[0])
         d.users.add(partner)
 
+    for i in range(10):
+        disc = Discussion.objects.create(
+            title=fake.sentence(),
+            description=fake.paragraph(),
+        )
+        for user in random.choices(users, k=2):
+            disc.users.add(user)
+
     discussions = Discussion.objects.all()
 
     for i in range(100):
         discuss = random.choice(discussions)
         sender = random.choice(discuss.users.all())
-        receiver = random.choice(discuss.users.all().exclude(pk=sender.pk))
+        receiver = random.choice(discuss.users.all().exclude(pk=sender.pk)) if discuss.users.all().exclude(
+            pk=sender.pk) else users.filter(username="a").first()
         Message.objects.create(
             content=fake.sentence(),
             message_sender=sender,

@@ -10,7 +10,7 @@ class ChatScreen extends Component {
             discussion: null,
             loaded: false,
             placeholder: "Loading"
-        };
+        };s
         this.displayFeed = this.displayFeed.bind(this)
     }
 
