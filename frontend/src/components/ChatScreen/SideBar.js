@@ -68,7 +68,6 @@ const SideBar = (props) => {
                 <button id="setting"><i className="icon-gear" aria-hidden="true"/> <span>Settings</span></button>
             </div>
         </div>
-
     )
 }
 
