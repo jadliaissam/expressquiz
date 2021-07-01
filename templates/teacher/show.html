@@ -1,0 +1,266 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {% load widget_tweaks %}
+    {% load templatetags %}
+    <!-- Begin Page Content -->
+    <div class="row space">
+        <div class="col-md-8 d-sm-flex">
+            <div class="align-items-center d-flex flex-column flex-sm-row justify-content-sm-start justify-content-start ml-sm-4 text-center">
+                <img class="m-3 m-sm-0" alt="Image" width="100px" height="100px" src="{{ teacher.image|logo }}"
+                     style="display : inline; border-radius : 50%">
+                <div class="align-items-sm-start d-flex flex-column justify-content-center ml-0 ml-sm-4">
+                    <h1 class="h3 text-gray-800">Détails Enseignant #{{ teacher.pk }}</h1>
+                    <p class="text-black-50 text-small">Dernière mise à jour : {{ teacher.updated_at }}
+                        par {{ teacher.updated_by.username }} </p>
+                </div>
+            </div>
+        </div>
+        <div class="align-items-center col-md-4 d-flex flex-row flex-sm-wrap justify-content-center justify-content-sm-end">
+            <div class="align-items-center d-flex dropdown m-2 mb-4">
+                <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Gérer
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{% url "edit_teacher" teacher.pk %}">Editer Enseignant</a>
+                    <a class="dropdown-item" onclick="delClient()" href="#">Supprimer Enseignant</a>
+                </div>
+            </div>
+            <div class="align-items-center d-flex dropdown m-2 mb-4">
+                <a class="btn btn-outline-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Nouveau
+                </a>
+            </div>
+            <form id="delClient" action="{% url "delete_teacher" teacher.pk %}" method="post">
+                {% csrf_token %}
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card border-left-primary shadow mb-4">
+                <div class="card-header">
+                    <h6 class="font-weight-bold text-primary">Informations Générales</h6>
+                </div>
+                <div class="card-body">
+                    <p>
+                        <label for="">Nom Complet : </label>
+                        <strong><label for="">{{ teacher.full_name }}</label></strong>
+                    </p>
+                    <p>
+                        <label for="">Affiliation : </label>
+                        <strong><label for="">{{ teacher.affiliation }}</label></strong>
+                    </p>
+                    <p>
+                        <label for="">Email : </label>
+                        <strong><label for="">{{ teacher.email }}</label></strong>
+                    </p>
+                    <p>
+                        <label for="">LinkedIn Account : </label>
+                        <strong><label for="">{{ teacher.linkedin_account }}</label></strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card border-left-primary shadow mb-4">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-primary">Biographie</h6>
+                </div>
+                <div class="card-body">
+                    <p>
+                        <label for="">Bio : </label>
+                        <strong><label for="">{{ teacher.bio }}</label></strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a id="contacts"></a>
+            <div class="card shadow border-left-primary mb-4">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-primary">Personnes à Contacter</h6>
+                </div>
+                <div class="card-body">
+                    <a id="#contacts"></a>
+                    {% if not teacher.contact_set.all %}
+                        <label class="text-primary" for="">Aucun Contact</label>
+                    {% else %}
+                        <div class="table-responsive">
+                            <table id="contactab2" class="dt-table table table-striped display table-bordered">
+                                <thead>
+                                <th class="all">#</th>
+                                <th class="all"></th>
+                                <th class="all">Nom</th>
+                                <th class="desktop">Fonction</th>
+                                <th class="desktop">GSM</th>
+                                <th class="desktop">Email</th>
+                                <th class="desktop">Téléphone</th>
+                                <th class="desktop">Fax</th>
+                                <th class="all" style="width: 75px">Edition</th>
+                                </thead>
+                                <tbody class="text-center">
+                                {% for contact in teacher.contact_set.all %}
+                                    <tr>
+                                        <td> {{ contact.pk }}</td>
+                                        <td>
+                                            {% if not contact.gsm and not contact.phone and not contact.email %}
+                                                N/A
+                                            {% else %}
+                                                <div>
+                                                    <div class="align-items-center d-flex dropdown m-2 mb-4">
+                                                        <a class="btn btn-outline-dark dropdown-toggle" href="#"
+                                                           role="button"
+                                                           id="dropdownMenuLink"
+                                                           data-toggle="dropdown" aria-haspopup="true"
+                                                           aria-expanded="false">
+                                                            Contacter
+                                                        </a>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                            {% if contact.gsm %}
+                                                                <a class="dropdown-item" href="tel:{{ contact.gsm }}"
+                                                                   title="{{ CUSTOM_HTML.icons.gsm.title }}">
+                                                                    <i class="{{ CUSTOM_HTML.icons.gsm.class }}"
+                                                                       style="{{ CUSTOM_HTML.icons.gsm.style }}"></i>
+                                                                    {{ CUSTOM_HTML.icons.gsm.title }}
+                                                                </a>
+                                                                <a class="dropdown-item" href="sms:{{ contact.gsm }}"
+                                                                   title="{{ CUSTOM_HTML.icons.sms.title }}">
+                                                                    <i class="{{ CUSTOM_HTML.icons.sms.class }}"
+                                                                       style="{{ CUSTOM_HTML.icons.sms.style }}"></i>
+                                                                    {{ CUSTOM_HTML.icons.sms.title }}
+                                                                </a>
+                                                                {% if contact.has_whatsapp %}
+                                                                    <a class="dropdown-item"
+                                                                       href="https://api.whatsapp.com/send?phone={{ contact.gsm }}"
+                                                                       target="_blank"
+                                                                       title="{{ CUSTOM_HTML.icons.whatsapp.title }}">
+                                                                        <i class="{{ CUSTOM_HTML.icons.whatsapp.class }}"
+                                                                           style="{{ CUSTOM_HTML.icons.whatsapp.style }}"></i>
+                                                                        {{ CUSTOM_HTML.icons.whatsapp.title }}
+                                                                    </a>
+                                                                {% endif %}
+                                                                <br>
+                                                            {% endif %}
+
+                                                            {% if contact.email %}
+                                                                <a class="dropdown-item"
+                                                                   href="mailto:{{ contact.email }}"
+                                                                   title="{{ CUSTOM_HTML.icons.mail.title }}">
+                                                                    <i class="{{ CUSTOM_HTML.icons.mail.class }}"
+                                                                       style="{{ CUSTOM_HTML.icons.mail.style }}"></i>
+                                                                    {{ CUSTOM_HTML.icons.mail.title }}
+                                                                </a>
+                                                            {% endif %}
+                                                            {% if contact.phone %}
+                                                                <a class="dropdown-item" href="tel:{{ contact.phone }}"
+                                                                   title="{{ CUSTOM_HTML.icons.phone.title }}">
+                                                                    <i class="{{ CUSTOM_HTML.icons.phone.class }}"
+                                                                       style="{{ CUSTOM_HTML.icons.phone.style }}"></i>
+                                                                    {{ CUSTOM_HTML.icons.phone.title }}
+                                                                </a>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ contact.name|none }}</td>
+                                        <td>{{ contact.function|none }}</td>
+                                        <td>{{ contact.gsm|none }}</td>
+                                        <td>{{ contact.email|none }}</td>
+                                        <td>{{ contact.phone|none }}</td>
+                                        <td>{{ contact.fax|none }}</td>
+                                        <td>
+                                            <form id="deleteContact{{ contact.pk }}" class=""
+                                                  action="{% url 'delete_contact' contact.pk %}"
+                                                  method="post">
+                                                {% csrf_token %}
+
+                                                <a href="{% url "edit_contact" contact.pk %}"
+                                                   title="{{ CUSTOM_HTML.icons.edit.title }}">
+                                                    <i class="{{ CUSTOM_HTML.icons.edit.class }}"
+                                                       style="{{ CUSTOM_HTML.icons.edit.style }}"></i>
+                                                </a>
+                                                <a href="javascript:void(0)" onclick="delContact({{ contact.pk }})"
+                                                   title="{{ CUSTOM_HTML.icons.delete.title }}">
+                                                    <i class="{{ CUSTOM_HTML.icons.delete.class }}"
+                                                       style="{{ CUSTOM_HTML.icons.delete.style }}"></i>
+                                                </a>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card shadow border-left-primary mb-4">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-primary">Bons de Livraison</h6>
+                </div>
+                <div class="card-body">
+                    <a id="deleveries"></a>
+                    {% if not teacher.delivery_set.all %}
+                        <label class="text-primary" for="">Aucun Bon de Livraison</label>
+                    {% else %}
+                        <div class="table-responsive">
+                        <table id="exampledelivery"
+                               class="dt-table display table-bordered table table-stripped">
+                            <thead>
+                            <th class="all">#</th>
+                            <th class="all">Montant Total</th>
+                            <th class="all">Date du Bon</th>
+                            <th>Date Création</th>
+                            <th>Crée par</th>
+                            <th class="all" style="width: 100px">Edition</th>
+                            </thead>
+                            <tbody>
+                            {% for delivery in teacher.delivery_set.all %}
+                                <tr>
+                                    <td>{{ delivery.pk }}</td>
+                                    <td>{{ delivery.montant_total }}</td>
+                                    <td>{{ delivery.date }}</td>
+                                    <td>{{ delivery.created_at }}</td>
+                                    <td>{{ delivery.created_by_username }}</td>
+                                    <td>
+                                        <form id="deleteDelivery{{ delivery.pk }}" class=""
+                                              action="{% url "delete_delivery" delivery.pk %}"
+                                              method="post">
+                                            {% csrf_token %}
+                                            <a href="{% url "show_delivery" delivery.pk %}"
+                                               title="{{ CUSTOM_HTML.icons.view.title }}">
+                                                <i class="{{ CUSTOM_HTML.icons.view.class }}"
+                                                   style="{{ CUSTOM_HTML.icons.view.style }}"></i>
+                                            </a>
+                                            <a href="{% url "edit_delivery" delivery.pk %}"
+                                               title="{{ CUSTOM_HTML.icons.edit.title }}">
+                                                <i class="{{ CUSTOM_HTML.icons.edit.class }}"
+                                                   style="{{ CUSTOM_HTML.icons.edit.style }}"></i>
+                                            </a>
+                                            <a href="javascript:void(0)" onclick="delDelivery({{ delivery.pk }})"
+                                               title="{{ CUSTOM_HTML.icons.delete.title }}">
+                                                <i class="{{ CUSTOM_HTML.icons.delete.class }}"
+                                                   style="{{ CUSTOM_HTML.icons.delete.style }}"></i>
+                                            </a>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+{% endblock %}

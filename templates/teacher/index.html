@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {% load widget_tweaks %}
+    {% load templatetags %}
+    <!-- Begin Page Content -->
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">Gestion des Teachers</h1>
+    <p>
+        <a href="{% url "create_teacher" %}" class="btn btn-primary btn-icon-split mb-4">
+        <span class="icon text-white-50">
+          <i class="fas fa-plus"></i>
+        </span>
+            <span class="text">Nouveau Enseignant</span>
+        </a>
+    </p>
+    <div class="card shadow border-left-primary mb-3">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Liste des Enseignants</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class=" dt-table table table-striped table-bordered" id="example" style="width: 100%">
+                    <thead>
+                    <th class="all">#</th>
+                    <th class="all" style="width:50px"></th>
+                    <th class="all">Nom</th>
+                    <th>Email</th>
+                    <th class="all" style="width:100px">Edition</th>
+                    </thead>
+                    <tbody>
+                    {% for teacher in teacher_list %}
+                        <tr>
+                            <td>{{ teacher.pk }}</td>
+                            <td><img src="{{ teacher.image|logo }}" width="40px" height="40px"
+                                     style="border-radius : 25%"></td>
+                            <td>{{ teacher.full_name }}</td>
+                            <td>{{ teacher.email|none }}</td>
+                            <td>
+                                <form id="deleteTeacher{{ teacher.pk }}" class=""
+                                      action="{% url "delete_teacher" teacher.pk %}"
+                                      method="post">
+                                    {% csrf_token %}
+                                    <a href="{% url "show_teacher" teacher.pk %}"
+                                       title="{{ CUSTOM_HTML.icons.view.title }}">
+                                        <i class="{{ CUSTOM_HTML.icons.view.class }}"
+                                           style="{{ CUSTOM_HTML.icons.view.style }}"></i>
+                                    </a>
+                                    <a href="{% url "edit_teacher" teacher.pk %}"
+                                       title="{{ CUSTOM_HTML.icons.edit.title }}">
+                                        <i class="{{ CUSTOM_HTML.icons.edit.class }}"
+                                           style="{{ CUSTOM_HTML.icons.edit.style }}"></i>
+                                    </a>
+                                    <a href="#" onclick="delTeacherById({{ teacher.pk }})"
+                                       title="{{ CUSTOM_HTML.icons.delete.title }}">
+                                        <i class="{{ CUSTOM_HTML.icons.delete.class }}"
+                                           style="{{ CUSTOM_HTML.icons.delete.style }}"></i>
+                                    </a>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <script>
+                let delTeacherById = (id) => {
+                    confirmDelete("deleteTeacher"+id, "Enseignant")
+                };
+            </script>
+        </div>
+    </div>
+{% endblock %}
+<!-- /.container-fluid -->

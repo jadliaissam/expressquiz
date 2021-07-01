@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {% load widget_tweaks %}
+    {% load templatetags %}
+    <!-- Begin Page Content -->
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">Gestion des institutes</h1>
+    <p>
+        <a href="{% url "create_institute" %}" class="btn btn-primary btn-icon-split mb-4">
+        <span class="icon text-white-50">
+          <i class="fas fa-plus"></i>
+        </span>
+            <span class="text">Nouveau Institut</span>
+        </a>
+    </p>
+    <div class="card shadow border-left-primary mb-3">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Liste des Instituts</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class=" dt-table table table-striped table-bordered" id="example" style="width: 100%">
+                    <thead>
+                    <th class="all">#</th>
+                    <th class="all" style="width:50px"></th>
+                    <th class="all">Nom</th>
+                    <th>Email</th>
+                    <th class="all" style="width:100px">Edition</th>
+                    </thead>
+                    <tbody>
+                    {% for institute in institute_list %}
+                        <tr>
+                            <td>{{ institute.pk }}</td>
+                            <td><img src="{{ institute.image|logo }}" width="40px" height="40px"
+                                     style="border-radius : 25%"></td>
+                            <td>{{ institute.full_name }}</td>
+                            <td>{{ institute.email|none }}</td>
+                            <td>
+                                <form id="deleteinstitute{{ institute.pk }}" class=""
+                                      action="{% url "delete_institute" institute.pk %}"
+                                      method="post">
+                                    {% csrf_token %}
+                                    <a href="{% url "show_institute" institute.pk %}"
+                                       title="{{ CUSTOM_HTML.icons.view.title }}">
+                                        <i class="{{ CUSTOM_HTML.icons.view.class }}"
+                                           style="{{ CUSTOM_HTML.icons.view.style }}"></i>
+                                    </a>
+                                    <a href="{% url "edit_institute" institute.pk %}"
+                                       title="{{ CUSTOM_HTML.icons.edit.title }}">
+                                        <i class="{{ CUSTOM_HTML.icons.edit.class }}"
+                                           style="{{ CUSTOM_HTML.icons.edit.style }}"></i>
+                                    </a>
+                                    <a href="#" onclick="delinstituteById({{ institute.pk }})"
+                                       title="{{ CUSTOM_HTML.icons.delete.title }}">
+                                        <i class="{{ CUSTOM_HTML.icons.delete.class }}"
+                                           style="{{ CUSTOM_HTML.icons.delete.style }}"></i>
+                                    </a>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <script>
+                let delinstituteById = (id) => {
+                    confirmDelete("deleteinstitute"+id, "Institut")
+                };
+            </script>
+        </div>
+    </div>
+{% endblock %}
+<!-- /.container-fluid -->

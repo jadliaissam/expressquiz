@@ -16,15 +16,7 @@ Including another URLconf
 from rest_framework import routers
 from django.urls import path, include
 
-from api.views import discussion, message, user
-from api.views.discussion import DiscussionViewAPI
-from api.views.message import MessageViewAPI
-from api.views.user import UserViewAPI
-
 router = routers.DefaultRouter()
-router.register('discussion', DiscussionViewAPI, basename="discussion")
-router.register('message', MessageViewAPI, basename="message")
-router.register('user', UserViewAPI, basename="user")
 
 urlpatterns = [
     path('', include(router.urls)),

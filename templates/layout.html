@@ -1,243 +1,648 @@
+{% load templatetags %}
 {% load static %}
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="fr-fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="theme-color" content="#1C2B36"/>
-    <title>Bird - Responsive admin dashboard template by Followtechnique</title>
 
-    <!-- Favicon -->
-    <link href="{% static 'img/favicon.ico' %}" rel="apple-touch-icon" type="image/png" sizes="144x144">
-    <link href={% static "img/favicon.ico" %} rel="apple-touch-icon" type="image/png" sizes="114x114">
-    <link href="{% static 'img/favicon.ico' %}" rel="apple-touch-icon" type="image/png" sizes="72x72">
-    <link href="{% static 'img/favicon.ico' %}" rel="apple-touch-icon" type="image/png">
-    <link href="{% static 'img/favicon.ico' %}" rel="icon" type="image/png">
-    <link href="{% static 'img/favicon.ico' %}" rel="shortcut icon">
-    <!-- /Favicon -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Aissam JADLI">
 
-    <!-- Global stylesheets -->
-    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <link type="text/css" rel="stylesheet" href="{% static 'css/animate.min.css' %}">
-    <link type="text/css" rel="stylesheet" href="{% static 'css/main.css' %}">
-    <!-- /Global stylesheets -->
+    <title>Gestion</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/tempusdominus-bootstrap-4.min.css' %}"/>
+
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+    <link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet">
+
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static '/vendor/animate/animate.min.css' %}">
+
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+
 </head>
-<body id="top">
 
-<!-- Preloader -->
-<div id="preloader">
-    <div id="status">
-        <div class="loader"></div>
-    </div>
-</div>
-<!-- /Preloader -->
+<body id="page-top">
 
-<div id="body-wrapper" class="body-container">
+<!-- Page Wrapper -->
+<div id="wrapper">
 
-    <!-- Header begins -->
-    <header class="main-nav clearfix">
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <!-- Searchbar -->
-        <div class="top-search-bar">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6 offset-md-3">
-                        <div class="search-input-addon">
-                            <span class="addon-icon"><i class="icon-search4"></i></span>
-                            <input type="text" class="form-control top-search-input"
-                                   placeholder="Enter your keyword...">
-                        </div>
-                    </div>
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">Gestion</div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" href="/">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Gestions
+        </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Enseignants</span>
+            </a>
+            <div id="collapseTwo" class="collapse {{ request.path|collapse:"/teacher" }}" aria-labelledby="headingTwo"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Gestion de Enseignants</h6>
+                    <a class="collapse-item" href="/teacher">Liste</a>
+                    <a class="collapse-item" href="/teacher/new">Nouveau</a>
                 </div>
             </div>
-        </div>
-        <!-- /Searchbar -->
+        </li>
 
-        <!-- Branding -->
-        <div class="navbar-left float-left">
-            <div class="clearfix">
-                <ul class="left-branding float-left">
-                    <li class="visible-handheld"><span class="left-toggle-switch"><i class="icon-menu7"></i></span></li>
-                    <li>
-                        <a href="/">
-                            <div class="logo"></div>
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2"
+               aria-expanded="true" aria-controls="collapseTwo2">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Fournisseur</span>
+            </a>
+            <div id="collapseTwo2" class="collapse {{ request.path|collapse:"/supplier" }}" aria-labelledby="headingTwo"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Gestion de Fournisseurs</h6>
+                    <a class="collapse-item" href="/supplier">Liste</a>
+                    <a class="collapse-item" href="/supplier/new">Nouveau</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo3"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Produit</span>
+            </a>
+            <div id="collapseTwo3" class="collapse" aria-labelledby="headingTwo3" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Gestion de Produits</h6>
+                    <a class="collapse-item" href="index_product"">Liste</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo32"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Devis</span>
+            </a>
+            <div id="collapseTwo32" class="collapse {{ request.path|collapse:"/quote" }}" aria-labelledby="headingTwo3"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Gestion de Devis</h6>
+                    <a class="collapse-item" href=" " index_quote"">Liste</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo4"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Achat</span>
+            </a>
+            <div id="collapseTwo4" class="collapse {{ request.path|collapse:"/order" }}" aria-labelledby="headingTwo4"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded active">
+                    <h6 class="collapse-header active">Gestion de Clients</h6>
+                    <a class="collapse-item" href="index_order">Liste</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo5"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Facture</span>
+            </a>
+            <div id="collapseTwo5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Gestion de Factures</h6>
+                    <a class="collapse-item" href=index_invoice">Liste</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo7"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Bons de Livraison</span>
+            </a>
+            <div id="collapseTwo7" class="collapse {{ request.path|collapse:"/delivery" }}" aria-labelledby="headingTwo"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Gestion des Bons</h6>
+                    <a class="collapse-item" href="index_delivery"">Liste</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Fonctionnalités
+        </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo8"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Générer</span>
+            </a>
+            <div id="collapseTwo8" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">PDF</h6>
+                    <a class="collapse-item" href="index_delivery">Facture</a>
+                </div>
+            </div>
+        </li>
+
+        {% if user.is_superuser %}
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo9"
+                   aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Administration</span>
+                </a>
+                <div id="collapseTwo9" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Panneau Configuration</h6>
+                        <a class="collapse-item" href="/user">Gestion des utilisateurs</a>
+                        <a class="collapse-item" href="/settings">Paramètres</a>
+                        <a class="collapse-item" href="/admin/alert">Tous les Alertes</a>
+                        <a class="collapse-item" href="/log">Journal des Erreurs</a>
+                    </div>
+                </div>
+            </li>
+
+        {% endif %}
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                <!-- Sidebar Toggle (Topbar) -->
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+                <!-- Topbar Search -->
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                               aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+
+                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                    <li class="nav-item dropdown no-arrow d-sm-none">
+                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-search fa-fw"></i>
                         </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- /Branding -->
-
-        <!-- Search & Languages -->
-        <div class="navbar float-left">
-            <div class="clearfix">
-                <ul class="float-left top-icons hidden-xs-down">
-                    <li><a href="#" class="btn-top-search m-l-15"><i class="icon-search4"></i></a></li>
-                    <li>
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-flag7"></i></a>
-                        <ul class="dropdown-menu languages animated fadeIn">
-                            <a class="dropdown-item" href="#">English</a>
-                            <a class="dropdown-item" href="#">Deutsch</a>
-                            <a class="dropdown-item" href="#">Українська</a>
-                            <a class="dropdown-item" href="#">España</a>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- /Search & Languages -->
-
-        <!-- Navbar icons -->
-        <div class="navbar float-right navbar-toggleable-sm">
-            <div class="clearfix">
-                <ul class="float-right top-icons">
-                    <li><a href="#" class="btn-top-search hidden-sm-up"><i class="icon-search4"></i></a></li>
-
-                    <!-- Quick apps dropdown -->
-                    <li class="dropdown apps-dropdown hidden-xs-down">
-                        <a href="#" class="dropdown-toggle" id="apps_dropdown" aria-haspopup="true"
-                           aria-expanded="false" data-toggle="dropdown"><i class="icon-grid2"></i></a>
-                        <div class="dropdown-menu animated fadeIn" aria-labelledby="apps_dropdown">
-
-                            <ul class="shortcuts clearfix">
-                                <li>
-                                    <a href="/emails">
-                                        <img src="{% static 'img/icons/emails.png' %}"/>
-                                        <span class="apps-noty">4</span>
-                                        <span class="apps-label">Email</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/messages">
-                                        <img src="{% static 'img/icons/messages.png' %}"/>
-                                        <span class="apps-noty">8</span>
-                                        <span class="apps-label">Messages</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/people">
-                                        <img src="{% static 'img/icons/people.png' %}"/>
-                                        <span class="apps-label">People</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/invoices">
-                                        <img src="{% static 'img/icons/invoices.png' %}"/>
-                                        <span class="apps-label">Invoices</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/projects">
-                                        <img src="{% static 'img/icons/projects.png' %}"/>
-                                        <span class="apps-label">Projects</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/messages">
-                                        <img src="{% static 'img/icons/tasks.png' %}"/>
-                                        <span class="apps-noty">3</span>
-                                        <span class="apps-label">Offers</span>
-                                    </a>
-                                </li>
-                            </ul>
-
+                        <!-- Dropdown - Messages -->
+                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                             aria-labelledby="searchDropdown">
+                            <form class="form-inline mr-auto w-100 navbar-search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small"
+                                           placeholder="Search for..." aria-label="Search"
+                                           aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fas fa-search fa-sm"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </li>
-                    <!-- /Quick apps dropdown -->
 
+                    <!-- Nav Item - Alerts -->
+                    <li class="nav-item dropdown no-arrow mx-1">
+                        <a class="nav-link dropdown-toggle
+                {% if alerts %}
+                    animated infinite swing
+                {% endif %}
+                 href=" #" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="fas fa-bell fa-fw"></i>
+                        <!-- Counter - Alerts -->
+                        <span class="badge badge-danger badge-counter">{{ alerts | length }}</span>
+                        </a>
+                        <!-- Dropdown - Alerts -->
+                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="alertsDropdown">
+                            <h6 class="dropdown-header">
+                                Alerts Center
+                            </h6>
+                            {% if alerts %}
+                                {% for a in alerts %}
+                                    <a class="dropdown-item d-flex align-items-center" href="/alert/{{ a.pk }}">
+                                        <div class="mr-3">
+                                            <div class="icon-circle bg-<%=alert.color%>">
+                                                <i class="fas fa-file-alt text-white"></i>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="small text-gray-500">{{ a.created_at }}</div>
+                                            <span class="font-weight-bold">{{ a.title }}</span>
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                                <a class="dropdown-item text-center small text-success-500" href="/alert">Show All
+                                    Alerts</a>
+                            {% else %}
+                                <a class="dropdown-item text-center small text-primary" href="/alert">Aucune Nouvelle
+                                    Alerte</a>
+                            {% endif %}
+                        </div>
+                    </li>
 
-                    <!-- User dropdown -->
-                    <li class="dropdown user-dropdown">
-                        <a href="#" class="btn-user dropdown-toggle hidden-xs-down" data-toggle="dropdown"><img
-                                src="http://via.placeholder.com/80x80" class="rounded-circle user" alt=""/></a>
-                        <a class="user-name hidden-xs-down" data-toggle="dropdown">Jane
-                            Elliott<small>Administrator</small></a>
-                        <a href="#" class="dropdown-toggle hidden-sm-up" data-toggle="dropdown"><i
-                                class="icon-more"></i></a>
-                        <div class="dropdown-menu animated fadeIn no-p">
-                            <div class="user-icon text-center p-t-15">
-                                <img src="http://via.placeholder.com/120x120" class="rounded-circle" alt=""/>
-                                <h5 class="text-center p-b-15">Hi! Jane Elliott</h5>
+                    <div class="topbar-divider d-none d-sm-block"></div>
+
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.username }}</span>
+                            <img class="img-profile rounded-circle" src="https://via.placeholder.com/100">
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="/profile">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Profile
+                            </a>
+                            <a class="dropdown-item" href="/alert">
+                                <i class="fa fa-bell fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Alertes
+                            </a>
+                            <a class="dropdown-item" href="/message">
+                                <i class="fas fa-envelope fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Messages
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+
+                </ul>
+
+            </nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <div class="row">
+                    {% for msg in messages %}
+                        {% if  msg.tags == 'success' %}
+                            <div class=" col-lg-12 mb-1 alert animated pulse alert-success alert-dismissible fade show"
+                                 role="alert">
+                                <strong>{{ msg }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                            <ul class="user-links">
-                                <li><a href="user_profile_social.html"><i class="icon-profile"></i> My profile</a></li>
-                                <li><a href="#"><i class="icon-envelop5"></i> Inbox <span
-                                        class="badge badge-danger float-right">4</span></a></li>
-                                <li><a href="user_profile_social.html"><i class="icon-cogs"></i> Profile settings</a>
-                                </li>
-                                <li><a href="login_unlock.html"><i class="icon-lock5"></i> Lock screen</a></li>
-                            </ul>
-                            <div class="text-center p-10"><a href="login_simple.html" class="btn btn-block"><i
-                                    class="icon-exit3 i-16 position-left"></i> Logout</a></div>
-                        </div>
-                    </li>
-                    <!-- /User dropdown -->
+                        {% endif %}
+                        {% if  msg.tags == 'warning' %}
+                            <div class="col-lg-12 mb-1 animated pulse alert alert-warning alert-dismissible fade show"
+                                 role="alert">
+                                <strong>{{ msg }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endif %}
+                        {% if  msg.tags == 'error' %}
+                            <div class="col-lg-12 mb-1 animated pulse alert alert-danger alert-dismissible fade show"
+                                 role="alert">
+                                <strong>{{ msg }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% block content %}
+                {% endblock %}
 
-                </ul>
             </div>
+            <!-- /.container-fluid -->
+
         </div>
-        <!-- /Navbar icons -->
+        <!-- End of Main Content -->
 
-    </header>
-    <!-- /Header ends -->
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Aissam 2021</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
 
-
-    <!-- Page container begins -->
-    <section class="main-container">
-        {% block content %}
-        {% endblock %}
-    </section>
-    <!-- /Page Container ends -->
-
-    <!-- ScrolltoTop -->
-    <a id="scrollTop" href="#top"><i class="icon-arrow-up12"></i></a>
-    <!-- /ScrolltoTop -->
+    </div>
+    <!-- End of Content Wrapper -->
 
 </div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-success" href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+<!-- Page level plugins -->
+<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.4/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.4/js/responsive.bootstrap.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script type="text/javascript" src="{% static '/vendor/moment/moment-with-locales.js' %}"></script>
+<script type="text/javascript" src="{% static '/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+<script src="{% static '/vendor/select2/select2.min.js' %}"></script>
+<script src="{% static '/vendor/sweetalert/sweetalert.min.js' %}"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="{% static '/js/custom.js' %}"></script>
+<script type="application/javascript">
 
 
-<!-- Layout settings -->
-<div class="layout"></div>
-<span class="is_hidden" id="jquery_vars">
-    <span class="is_hidden switch-active"></span>
-    <span class="is_hidden switch-inactive"></span>
-    <span class="is_hidden chart-bg"></span>
-    <span class="is_hidden chart-gridlines-color"></span>
-    <span class="is_hidden chart-legends-text-color"></span>
-    <span class="is_hidden chart-grid-text-color"></span>
-    <span class="is_hidden chart-data-color-option1"></span>
-    <span class="is_hidden chart-data-color-option2"></span>
-    <span class="is_hidden chart-data-color-option3"></span>
-    <span class="is_hidden chart-data-color-option4"></span>
-    <span class="is_hidden chart-data-color-option5"></span>
-    <span class="is_hidden chart-data-color-option6"></span>
-    <span class="is_hidden chart-data-color-option7"></span>
-    <span class="is_hidden chart-data-color-option8"></span>
-    </span>
-<!-- /Layout settings -->
+    if ($(window).width() < 522) {
+        $('#sidebarToggle').click()
+    } else {
 
-<!-- Global scripts -->
-<script src="{% static 'js/core/jquery/jquery.js' %}"></script>
-<script src="{% static 'js/core/jquery/jquery.ui.js' %}"></script>
-<script src="{% static 'js/core/tether.min.js' %}"></script>
-<script src="{% static 'js/core/bootstrap/bootstrap.js' %}"></script>
-<script src="{% static 'js/core/bootstrap/jasny_bootstrap.min.js' %}"></script>
-<script src="{% static 'js/core/navigation/nav.accordion.js' %}"></script>
-<script src="{% static 'js/core/hammer/hammerjs.js' %}"></script>
-<script src="{% static 'js/core/hammer/jquery.hammer.js' %}"></script>
-<script src="{% static 'js/core/slimscroll/jquery.slimscroll.js' %}"></script>
-<script src="{% static 'js/extensions/smart-resize.js' %}"></script>
-<script src="{% static 'js/extensions/blockui.min.js' %}"></script>
-<script src="{% static 'js/forms/uniform.min.js' %}"></script>
-<script src="{% static 'js/forms/switchery.js' %}"></script>
-<script src="{% static 'js/forms/select2.min.js' %}"></script>
-<script src="{% static 'js/plugins/ekko-lightbox.min.js' %}"></script>
-<!-- /Global scripts -->
-<!-- Core scripts -->
-<script src="{% static 'js/core/app/layouts.js' %}"></script>
-<script src="{% static 'js/core/app/core.js' %}"></script>
-<!-- /Core scripts -->
+    }
 
+    $('.dtpicker').datetimepicker({
+        ignoreReadonly: true,
+        format: "DD/MM/YYYY"
+    });
+
+    let confirmDelete = (formID, entity) => {
+        swal({
+            title: "Confirmation",
+            text: `Voulez vous vraiment supprimer ce ${entity} ?`,
+            icon: "warning",
+            dangerMode: true,
+            buttons: {
+                cancel: true,
+                confirm: true,
+            },
+        })
+            .then(willDelete => {
+                if (willDelete) {
+                    let form = document.getElementById(formID);
+                    if (form) {
+                        form.submit()
+                        swal("Opération Réussie !", `Le ${entity} a été supprimé avec succès !`, "success");
+                    } else {
+                        swal("Erreur !", `Une erreur est survenue !`, "error");
+                    }
+                }
+            });
+    }
+
+    let delClientById = (id) => {
+        confirmDelete("deleteClient" + id, "Client")
+    };
+
+    let delClient = () => {
+        confirmDelete("delClient", "Client")
+    };
+
+    let delProductById = (id) => {
+        confirmDelete("deleteProduct" + id, "Produit")
+    };
+
+    let delProduct = () => {
+        confirmDelete("delProduct", "Produit")
+    };
+
+    let delSupplierById = (id) => {
+        confirmDelete("deleteSupplier" + id, "Fournisseur")
+    };
+
+    let delSupplier = () => {
+        confirmDelete("deleteSupplier", "Fournisseur")
+    };
+
+    let delContact = (id) => {
+        confirmDelete("deleteContact" + id, "Contact")
+    }
+
+    let delDocument = (id) => {
+        confirmDelete("deleteDocument" + id, "Document")
+    }
+
+    let delQuote = () => {
+        confirmDelete("deleteQuote", "Devis")
+    }
+
+    let delQuoteById = (id) => {
+        confirmDelete("deleteQuote" + id, "Devis")
+    };
+
+    let delQuoteLine = () => {
+        confirmDelete("deleteQuoteLine", "Ligne de Devis")
+    }
+
+    let delQuoteLineById = (id) => {
+        confirmDelete("deleteQuoteLine" + id, "Ligne de Devis")
+    };
+
+    let delInvoiceLine = () => {
+        confirmDelete("deleteInvoiceLine", "Ligne de Facture")
+    }
+
+    let delInvoiceLineById = (id) => {
+        confirmDelete("deleteInvoiceLine" + id, "Ligne de Facture")
+    };
+
+    let delInvoice = () => {
+        confirmDelete("deleteInvoice", "Facture")
+    }
+
+    let delInvoiceById = (id) => {
+        confirmDelete("deleteInvoice" + id, "Facture")
+    };
+
+    let delDeliveryLine = () => {
+        confirmDelete("deleteDeliveryLine", "Ligne de Bon de Livraison")
+    }
+
+    let delDeliveryLineById = (id) => {
+        confirmDelete("deleteDeliveryLine" + id, "Ligne de Bon de Livraison")
+    };
+
+    let delDelivery = () => {
+        confirmDelete("deleteDelivery", "Bon de Livraison")
+    }
+
+    let delDeliveryById = (id) => {
+        confirmDelete("deleteDelivery" + id, "Bon de Livraison")
+    };
+
+    let delOrderLine = () => {
+        confirmDelete("deleteOrderLine", "Ligne d'Achat")
+    }
+
+    let delOrderLineById = (id) => {
+        confirmDelete("deleteOrderLine" + id, "Ligne d'Achat")
+    };
+
+    let delOrder = () => {
+        confirmDelete("deleteOrder", "Achat")
+    }
+
+    let delOrderById = (id) => {
+        confirmDelete("deleteOrder" + id, "Achat")
+    };
+
+    let delEntity = (id) => {
+        confirmDelete("deleteEntity" + id, "Objet")
+    }
+
+    $(document).ready(function () {
+        $("#id_product").change(function () {
+            let product_id = $(this).children("option:selected").val();
+            if (product_id.length === 0)
+                product_id = 0
+            let url = '/ajax/product/' + product_id
+            fetch(url).then(res => res.json()).then(data => {
+                document.getElementById('id_sku').value = ""
+                document.getElementById('id_description').value = ""
+                document.getElementById('id_designation').value = ""
+                document.getElementById('id_unit_buy_price').value = 0
+                document.getElementById('id_unit_sell_price').value = 0
+                document.getElementById('id_sku').value = ""
+                if (data.length > 0) {
+                    data = data[0]
+                    document.getElementById('id_sku').value = data.fields.sku
+                    document.getElementById('id_description').value = data.fields.description
+                    document.getElementById('id_designation').value = data.fields.designation
+                    document.getElementById('id_unit_buy_price').value = data.fields.unit_buy_price
+                    document.getElementById('id_unit_sell_price').value = data.fields.unit_sell_price
+                }
+            }).catch(err => alert('Une erreur est survenu lors de la récupération des données Produit'))
+        });
+    })
+</script>
 </body>
+
 </html>

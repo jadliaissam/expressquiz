@@ -1,0 +1,109 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {% load widget_tweaks %}
+    <!-- Begin Page Content -->
+    <h1 class="h3 mb-4 text-gray-800">Editer Institut : {{ object.full_name }}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <!-- Page Heading -->
+            <div class="col-lg-6">
+                <div class="card shadow border-left-primary mb-4">
+                    <div class="card-header">
+                        <h6 class="m-0 font-weight-bold text-primary">Informations Générales</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div class="form-group space">
+                                <label for="title">Nom complet</label>
+                                {% render_field form.full_name class="form-control" %}
+                                {% if form.full_name.errors %}
+                                    <ol class="text-small animated pulse text-danger alert-dismissible fade show">
+                                        {% for error in form.full_name.errors %}
+                                            <li><strong>{{ error|safe }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                            <div class="form-group space">
+                                <label for="company_name">Affiliation</label>
+                                {% render_field form.affiliation class="form-control" %}
+                                {% if form.affiliation.errors %}
+                                    <ol class="text-small animated pulse text-danger alert-dismissible fade show">
+                                        {% for error in form.affiliation.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                            <div class="form-group space">
+                                <label for="address">Adresse Email</label>
+                                {% render_field form.email class="form-control" %}
+                                {% if form.email.errors %}
+                                    <ol class="text-small animated pulse text-danger alert-dismissible fade show">
+                                        {% for error in form.email.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                        <div class="form-group space">
+                                <label for="zip">Compte Utilisateur</label>
+                                {% render_field form.institute_appuser class="form-control" %}
+                                {% if form.institute_appuser.errors %}
+                                    <ol class="text-small animated pulse text-danger alert-dismissible fade show">
+                                        {% for error in form.institute_appuser.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page Heading -->
+            <div class="col-lg-6">
+                <div class="card shadow border-left-primary mb-4">
+                    <div class="card-header">
+                        <h6 class="m-0 font-weight-bold text-primary">Description</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div class="form-group space">
+                                <label for="zip">Compte LinkedIn</label>
+                                {% render_field form.linkedin_account class="form-control" %}
+                                {% if form.linkedin_account.errors %}
+                                    <ol class="text-small animated pulse text-danger alert-dismissible fade show">
+                                        {% for error in form.linkedin_account.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                            <div class="form-group space">
+                                <label for="city">Biographie</label>
+                                {% render_field form.bio class="form-control" %}
+                                {% if form.bio.errors %}
+                                    <ol class="text-small animated pulse text-danger alert-dismissible fade show">
+                                        {% for error in form.bio.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 offset-md-4" style="display:inline-block;">
+                <button type="submit" class="btn btn-primary btn-block" style="margin-bottom : 20px">Enregistrer
+                </button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+<!-- /.container-fluid -->

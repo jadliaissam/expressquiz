@@ -29,12 +29,12 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    "widget_tweaks",
+    "exams",
     'django.contrib.staticfiles',
     'frontend',
     'rest_framework',
     'rest_framework.authtoken',
-    'channels',
-    'app',
     'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -65,6 +65,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                "exams.context_processor.my_context",
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -154,3 +155,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = "exams.AppUser"
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'exams/static'),
+]

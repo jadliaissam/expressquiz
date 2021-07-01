@@ -1,0 +1,86 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {% load widget_tweaks %}
+    <!-- Begin Page Content -->
+    <h1 class="h3 mb-4 text-gray-800">Nouveau Institut</h1>
+    <p>Remplir les formulaires suivants {{ form.errors }}</p>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <!-- Page Heading -->
+            <div class="col-lg-6">
+                <div class="card shadow border-left-primary mb-4">
+                    <div class="card-header">
+                        <h6 class="m-0 font-weight-bold text-primary">Informations Générales</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div class="form-group space">
+                                <label for="title">Nom</label>
+                                {% render_field form.name class="form-control" %}
+                                {% if form.name.errors %}
+                                    <ol class="text-small animated pulse text-danger alert-dismissible fade show">
+                                        {% for error in form.name.errors %}
+                                            <li><strong>{{ error|safe }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                            <div class="form-group space">
+                                <label for="company_name">Code</label>
+                                {% render_field form.code class="form-control" %}
+                                {% if form.code.errors %}
+                                    <ol class="text-small animated pulse text-danger alert-dismissible fade show">
+                                        {% for error in form.code.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                        <div class="form-group space">
+                                <label for="company_name">Image</label>
+                                {% render_field form.avatar class="form-control" %}
+                                {% if form.avatar.errors %}
+                                    <ol class="text-small animated pulse text-danger alert-dismissible fade show">
+                                        {% for error in form.avatar.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page Heading -->
+            <div class="col-lg-6">
+                <div class="card shadow border-left-primary mb-4">
+                    <div class="card-header">
+                        <h6 class="m-0 font-weight-bold text-primary">Informations Supplémentaires</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group space">
+                            <label for="address">Description</label>
+                            {% render_field form.description class="form-control" %}
+                            {% if form.description.errors %}
+                                <ol class="text-small animated pulse text-danger alert-dismissible fade show">
+                                    {% for error in form.description.errors %}
+                                        <li><strong>{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                </ol>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 offset-md-4" style="display:inline-block;">
+                <button type="submit" class="btn btn-primary btn-block" style="margin-bottom : 20px">Enregistrer
+                </button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+<!-- /.container-fluid -->
