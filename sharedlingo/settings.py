@@ -13,6 +13,13 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import os
+import dj_database_url
+import environ
+
+env = environ.Env()
+env.read_env(env_file='.env')
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -91,12 +98,32 @@ CORS_ALLOWED_ORIGINS = ['http://*', 'https://*']
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
+POSTGRES_DB = {
+    'default': {
+        'ENGINE': env.str('SQL_ENGINE', default='django.db.backends.postgresql_psycopg2'),
+        'NAME': env.str('POSTGRES_DB', default='postgres'),
+        'USER': env.str('POSTGRES_USER', default='postgres'),
+        'PASSWORD': env.str('POSTGRES_PASSWORD', default='postgres'),
+        'HOST': env.str('SQL_HOST', default='localhost'),
+        'PORT': env.str('SQL_PORT', default='5432'),
+    },
+}
+
+SQL_LITE = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+DATABASE_URL = env.str('DB_URL', default=None)
+LOCAL_DB_TYPE = env.str('DB_TYPE', default='sqlite')
+
+HEROKU_POSTGRES_DB = {
+    'default': dj_database_url.config()
+}
+
+DATABASES = HEROKU_POSTGRES_DB if DATABASE_URL else SQL_LITE if LOCAL_DB_TYPE == 'sqlite' else POSTGRES_DB
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
